@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity{
 
     // Instantiate LineGraphView object
     LineGraphView accelGraph;
-    LineGraphView magFieldGraph;
+    // LineGraphView magFieldGraph;
     static MapView mv;
     static NavigationalMap map;
 
@@ -95,9 +95,6 @@ public class MainActivity extends AppCompatActivity{
                     movingPoint.x = startPoint.x;
                     movingPoint.y = startPoint.y;
 
-                    // U-Case
-                    // Defaulting to go down
-                    // Keep going down until no obstacles between fakeFinal and movingpoint
                     List<InterceptPoint> obstacles;
                     do { // Scale the wall until it's clear
                         movingPoint.y += 0.5;
@@ -120,9 +117,6 @@ public class MainActivity extends AppCompatActivity{
                     movingPoint.x = startPoint.x;
                     movingPoint.y = startPoint.y;
 
-                    // U-Case
-                    // Defaulting to go down
-                    // Keep going down until no obstacles between fakeFinal and movingpoint
                     List<InterceptPoint> obstacles;
                     do {
                         movingPoint.y += 0.5;
@@ -146,7 +140,6 @@ public class MainActivity extends AppCompatActivity{
             PathCreated = true;
 
             // Clear the pathPoints for the next time the destination is set
-            //directionPoints = pathPoints;
             for (PointF pf:pathPoints){
                 directionPoints.add(pathPoints.indexOf(pf), pf);
             }
@@ -232,28 +225,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
         layout.addView(resetButton); // Add the button to the parent layout
-
-//        dir.mkdir();
-//        int interval = 50;
-//        int duration = 20000;
-//        TimerTask timer1Task = new TimerTask() {
-//            @Override
-//            public void run() {
-////                writeToFile(accelListener.getOrientation());
-//            }
-//        };
-//
-//        TimerTask timer2Task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                System.exit(0);
-//            }
-//        };
-//
-//        Timer timer1 = new Timer();
-//        Timer timer2 = new Timer();
-//        timer1.schedule(timer1Task, interval, interval);
-//        timer2.schedule(timer2Task, duration);
     }
 
     @Override
@@ -268,7 +239,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     // Method for data extraction and file write out
-    private void writeToFile(float[] values){
+    /*private void writeToFile(float[] values){
         try {
             PrintWriter pw = new PrintWriter(new FileWriter(file, true));
             pw.append(values[0] + ", " + values[1] + ", " + values[2] + "\n");
@@ -278,5 +249,5 @@ public class MainActivity extends AppCompatActivity{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

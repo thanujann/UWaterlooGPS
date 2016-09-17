@@ -37,20 +37,11 @@ public class MagneticFieldSensorEventListener implements SensorEventListener {
 
     public void onSensorChanged(SensorEvent event){ // SensorEvent represents a single message from a single sensor
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            //Smooth values for x, y and z
-//            accelValues[0] += (event.values[0] - accelValues[0]) / CONSTANT;
-//            accelValues[1] += (event.values[1] - accelValues[1]) / CONSTANT;
-//            accelValues[2] += (event.values[2] - accelValues[2]) / CONSTANT;
             accelValues = event.values.clone(); // Copy the accelerometer readings
         }
 
         if(event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             magFieldValues = event.values.clone();
-
-            //Smooth values for x, y and z
-//            magFieldValues[0] += (event.values[0] - magFieldValues[0]) / CONSTANT;
-//            magFieldValues[1] += (event.values[1] - magFieldValues[1]) / CONSTANT;
-//            magFieldValues[2] += (event.values[2] - magFieldValues[2]) / CONSTANT;
 
             if(SensorManager.getRotationMatrix(R, I, accelValues, magFieldValues)){ // Get the rotation matrix
 //                mAzimuth= (int) ( Math.toDegrees( SensorManager.getOrientation( R, orientation )[0] ) + 360 ) % 360;
@@ -60,19 +51,10 @@ public class MagneticFieldSensorEventListener implements SensorEventListener {
                     prevAngle = mAzimuth;
                     initial = false; // Set initial flag to false
                 }
-//                if ((mAzimuth - prevAngle) <= -Math.PI*1.9){
-//                    prevAngle += 2*Math.PI;
-//                } else if((mAzimuth - prevAngle) >= Math.PI*1.9){
-//                    prevAngle -= 2*Math.PI;
-//                }
                 prevAngle += (mAzimuth - prevAngle)/2; // Average the previous angle with the difference between the current and previous angle
             }
 
             northStepMag = Math.cos(prevAngle); // Get the y component of the orientation vector (North)
-            eastStepMag = Math.sin(prevAngle); // Get the x component of the orientation vector (East)
-
-            //orientation[0] = (float) Math.toDegrees((prevAngle + 360))%360; // Converting angle to degrees between 0 and 360
-            //graph.addPoint(orientation); // Add the angle to the graph
 
             // Output x, y, and z components of the magnetic field sensor, as well as the north and east displacement
             output.setText(String.format("------ DISPLACEMENT ------\nNORTH: %f\nEAST: %f",
